@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gen Wealth</title>
+<meta name="theme-color" content="#0b1020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gen Wealth">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2312203a'/%3E%3Ctext x='32' y='42' font-size='28' font-family='Arial' font-weight='bold' fill='%23e5b769' text-anchor='middle'%3EGW%3C/text%3E%3C/svg%3E">
+<style>
+  :root{--bg:#0b1020;--panel:#121a2e;--panel2:#0f1626;--ink:#e8edf7;--mut:#8fa0c0;--line:#243350;--gold:#e5b769;--navy:#1f3864;--grn:#37c07a;--grnbg:#0f2e22;--amb:#e8b64a;--ambbg:#332711;--red:#e8615a;--redbg:#331616;--blue:#4d8bd6;--purp:#b07fe0;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:radial-gradient(1200px 600px at 50% -10%,#152238 0,var(--bg) 60%);background-attachment:fixed;color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 15px}
+  header{position:sticky;top:0;z-index:20;background:rgba(11,16,32,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 11px) 0 10px}
+  .hrow{max-width:960px;margin:0 auto;padding:0 15px;display:flex;align-items:center;gap:10px}
+  .logo{width:29px;height:29px;border-radius:8px;border:1.5px solid var(--gold);background:#12203a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:var(--gold)}
+  .htitle{font-weight:800;font-size:16px}.gold{color:var(--gold)}
+  .hdate{margin-left:auto;color:var(--mut);font-size:11px;text-align:right;line-height:1.3}
+  h1{font-size:21px;margin:16px 0 2px;font-weight:800}
+  .sub{color:var(--mut);font-size:12.5px;margin:0 0 15px}
+  h2{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);margin:22px 0 10px;font-weight:700;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .view{display:none;animation:fade .2s ease}.view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .master{border-radius:12px;padding:13px 15px;margin:2px 0 10px;background:linear-gradient(90deg,#12331f,#0f2136);border:1px solid #2c6a45;border-left:5px solid var(--grn)}
+  .master .k{font-size:10px;letter-spacing:1.3px;font-weight:700;text-transform:uppercase;color:#7fe3ab}
+  .master .v{font-size:15px;font-weight:800;margin-top:3px}
+  .master .n{color:var(--mut);font-size:12px;margin-top:5px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin-bottom:10px}
+  .card h3{margin:0 0 5px;font-size:14.5px}.card p{margin:0 0 6px;color:var(--mut);font-size:12.8px}.card p:last-child{margin-bottom:0}.card b{color:var(--ink)}
+  .gate{border-left:4px solid var(--line)}
+  .gate.now{border-left-color:var(--grn)}
+  .gate .gk{font-size:10px;font-weight:800;letter-spacing:.6px;color:var(--gold);text-transform:uppercase}
+  .gate .gt{font-weight:800;font-size:15px;margin:2px 0 5px}
+  .gate .row{font-size:12.5px;margin-bottom:3px}.gate .row b{color:var(--ink)}
+  .tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.5px;padding:2px 7px;border-radius:999px;margin-left:6px;background:var(--grnbg);color:var(--grn);border:1px solid #2c6a45}
+  table{width:100%;border-collapse:collapse;font-size:12.3px;margin-top:2px}
+  th{text-align:left;color:var(--gold);font-size:10px;letter-spacing:.6px;text-transform:uppercase;padding:7px 8px;border-bottom:1px solid var(--line)}
+  td{padding:8px 8px;border-bottom:1px solid #1a2540;vertical-align:top}tr:last-child td{border-bottom:none}
+  .win{color:var(--grn);font-weight:700}
+  .eq{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:11px;text-align:center}
+  .eq .f{font-size:15px;font-weight:800}.eq .f .r{color:var(--blue)}.eq .f .b{color:var(--amb)}
+  .eq .d{color:var(--mut);font-size:11.5px;margin-top:5px}
+  .tvwrap{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-bottom:10px}
+  .tvwrap.tall{height:320px}.tvwrap.mid{height:200px}
+  .lbl{font-size:11px;font-weight:700;color:var(--mut);padding:2px 2px 7px}.lbl b{color:var(--ink)}.lbl .t{color:var(--blue)}
+  .read{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:600px){.read{grid-template-columns:1fr}}
+  .rc{border-radius:11px;padding:12px 14px}.rc h3{margin:0 0 6px;font-size:14px}.rc p{margin:0;font-size:12.3px;line-height:1.45}
+  .go{background:var(--grnbg);border:1px solid #2c6a45}.go h3{color:var(--grn)}.go p{color:#bfe9cf}
+  .stop{background:var(--redbg);border:1px solid #6a2c2c}.stop h3{color:var(--red)}.stop p{color:#f0c9c5}
+  .rc b{color:var(--ink)}
+  .seq{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:10px 0 4px;font-size:12px;font-weight:700}
+  .seq .s{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:5px 9px}.seq .ar{color:var(--gold);font-weight:800}
+  .note{background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:11px 13px;color:var(--mut);font-size:12.2px;margin-top:12px}.note b{color:var(--ink)}
+  .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:4px}
+  .q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 11px}
+  .q .sym{font-weight:800;font-size:12.5px}.q .px{font-variant-numeric:tabular-nums;font-weight:800;font-size:16px;margin-top:2px}
+  .q .ch{font-size:11px;font-weight:700;margin-top:1px}.q .up{color:var(--grn)}.q .dn{color:var(--red)}.q .flat{color:var(--mut)}
+  .q .src{font-size:8.5px;color:#5f6f8f;text-transform:uppercase;margin-top:3px}.q.stale{opacity:.6}
+  .ul{list-style:none;padding:0;margin:6px 0 0}.ul li{position:relative;padding-left:18px;margin-bottom:6px;font-size:12.6px;color:var(--mut)}.ul li:before{content:"";position:absolute;left:3px;top:7px;width:6px;height:6px;border-radius:50%;background:var(--gold)}.ul li b{color:var(--ink)}
+  nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(11,16,32,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;padding:6px 3px calc(env(safe-area-inset-bottom) + 6px)}
+  nav button{flex:1;background:none;border:none;color:var(--mut);font-family:inherit;padding:5px 2px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;border-radius:8px}
+  nav button .ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  nav button.on{color:var(--gold)}
+  .score{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:12px}
+  .sctop{display:flex;align-items:flex-start;justify-content:space-between}
+  .sck{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .scband{font-size:16px;font-weight:800;margin-top:3px}
+  .scnum{font-weight:800;font-size:34px;line-height:1}.scden{font-size:15px;color:var(--mut);font-weight:700}
+  .meter{height:9px;border-radius:6px;background:#1a2540;overflow:hidden;margin:11px 0 6px}
+  .meter>span{display:block;height:100%;border-radius:6px;transition:width .3s,background .3s;width:0}
+  .scnote{color:var(--mut);font-size:11px;margin-bottom:4px}
+  .sig{display:flex;align-items:flex-start;gap:10px;padding:9px 3px;border-top:1px solid #1a2540;cursor:pointer}
+  .sig .dot{flex:none;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#08170f}
+  .sig.on .dot{background:var(--grn);border-color:var(--grn)}
+  .sig .sl{flex:1;font-size:12.4px;color:var(--mut);line-height:1.4}.sig.on .sl{color:var(--ink)}
+  .sig .sw{flex:none;font-size:11px;font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;margin-top:1px}
+  .wherebox{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:11px;padding:12px 14px;margin-bottom:12px}
+  .wherebox .k{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .wherebox .v{font-size:13.5px;font-weight:700;margin-top:3px}
+  .wherebox .n{color:var(--mut);font-size:12px;margin-top:6px}.wherebox .n b{color:var(--ink)}
+  .chartlbl{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.4px;padding:2px 8px;border-radius:999px;margin-right:6px}
+  .cl-nom{background:#22314f;color:var(--ink)}.cl-real{background:#16304a;color:var(--blue)}.cl-be{background:var(--ambbg);color:var(--amb)}
+  .guide{color:var(--mut);font-size:11.8px;line-height:1.45;margin:-4px 0 14px;padding:0 3px}.guide b{color:var(--ink)}
+  .foot{color:#5f6f8f;font-size:10.5px;margin:22px 0 6px;text-align:center;line-height:1.6}
+</style>
+</head>
+<body>
+<header><div class="hrow"><div class="logo">GW</div><div class="htitle">Gen <span class="gold">Wealth</span></div><div class="hdate"><span id="stamp">Live</span><br>Not advice</div></div></header>
+
+<div class="wrap">
+
+  <!-- GATES -->
+  <section class="view active" id="gates">
+    <h1>The Gates</h1>
+    <p class="sub">Deflation of the old system → inflation of the next. Don't predict the path — let each gate confirm, then move posture.</p>
+    <div class="master"><div class="k">◆ Thesis</div><div class="v">Yield-spike → something breaks → forced print → gold + silver + crypto reflate</div><div class="n">The current debt system is deflating while the digital-rail system inflates. Accumulate at 0, press at 1, buy the flush at 2, full-send at 3, ride at 4.</div></div>
+
+    <div class="score">
+      <div class="sctop"><div><div class="sck">Thesis Score · your live read</div><div class="scband" id="scband">—</div></div><div style="text-align:right"><span class="scnum" id="scnum">0</span><span class="scden">/100</span></div></div>
+      <div class="meter"><span id="mfill"></span></div>
+      <div class="scnote">Tap a signal as it flips. Score = confirmed weights. Defaults below = my current read.</div>
+      <div id="signals"></div>
+    </div>
+
+    <div class="card gate now"><div class="gk">Gate 0 · now</div><div class="gt">The reprieve<span class="tag">HERE</span></div><div class="row"><b>Trigger:</b> 10y pulls back off its high, oil/diesel pull back, CPI/breakevens soften — disinflation head-fake.</div><div class="row"><b>Do:</b> accumulate gold/silver/crypto into the dip. Don't chase. Keep powder.</div><div class="row"><b>Tell:</b> the 10y stalls/rolls off its high while CPI softens. A reprieve, not a top — don't relax the thesis.</div></div>
+    <div class="card gate"><div class="gk">Gate 1</div><div class="gt">Yields resume, higher</div><div class="row"><b>Trigger:</b> 10y breaks its prior high (~5.245→new), 30y→6%, weak auctions, MOVE up, oil turning back up.</div><div class="row"><b>Do:</b> stop accumulating, start pressing the hard-money longs.</div><div class="row"><b>Tell:</b> one clean weekly close on the 10y ABOVE the pullback high = reprieve over, fiscal stress winning.</div></div>
+    <div class="card gate"><div class="gt">Gate 2 · Something breaks</div><div class="row"><b>Trigger:</b> repo/SOFR spike, bank/sovereign wobble, gilt/JGB or yen-carry unwind. The deflationary crack.</div><div class="row"><b>Do:</b> the flush — gold/crypto dip too; deploy dry powder into it, don't sell.</div><div class="row"><b>Tell:</b> MOVE index jumps + an "X in trouble" headline. Everything red together = the flush = the buy.</div></div>
+    <div class="card gate"><div class="gt">Gate 3 · The print (the pivot)</div><div class="row"><b>Trigger:</b> Fed QE/YCC/long-end buying, balance sheet turns UP, real yields capped while nominal high.</div><div class="row"><b>Do:</b> full-send — gold leads, silver/miners amplify, crypto follows.</div><div class="row"><b>Tell:</b> the Fed balance-sheet line ticks UP + the word "QE". That turn is the whole trade — biggest weight on the score.</div></div>
+    <div class="card gate"><div class="gt">Gate 4 · New-system reflation</div><div class="row"><b>Trigger:</b> BTC decouples from Nasdaq/trades with gold; gold breaks out; silver follows; digital rails live; DXY rolling.</div><div class="row"><b>Do:</b> ride it, trail stops, plan the end-rotation (gold→property at the ratio low).</div><div class="row"><b>Tell:</b> a day the Nasdaq falls but BTC rises with gold. "Digital gold" confirmed — the payoff leg.</div></div>
+
+    <h2>If they DON'T print — the branches</h2>
+    <table>
+      <tr><th>Scenario</th><th>Winners</th></tr>
+      <tr><td><b>They print</b> (base)</td><td class="win">Gold, silver, crypto</td></tr>
+      <tr><td><b>They hold</b> (Volcker)</td><td>Cash, dollar, long bonds at yield peak</td></tr>
+      <tr><td><b>Depression</b> (deflation)</td><td>Cash, Treasuries, <span class="win">gold + miners</span>, owned real assets</td></tr>
+    </table>
+    <div class="note"><b>All-weather core (wins in every branch):</b> gold + cash + debt-free productive real assets owned outright. Crypto/silver = the print-upside; dollar/bonds = the Volcker hedge. The <b>Uruguay chacra is the same trade</b> — own what survives a monetary reset.</div>
+  </section>
+
+  <!-- YIELD -->
+  <section class="view" id="yield">
+    <h1>Yield <span class="gold">Referee</span></h1>
+    <p class="sub">Read the 10y once → it tells you: press gold/silver/crypto, or sit in cash.</p>
+    <div class="eq"><div class="f">Nominal = <span class="r">Real</span> + <span class="b">Breakeven</span></div><div class="d">Nominal = headline (US10Y) · <span style="color:var(--blue)">Real</span> = after inflation (DFII10) · <span style="color:var(--amb)">Breakeven</span> = expected inflation (T10YIE)</div></div>
+    <div class="wherebox"><div class="k">◆ Where we are</div><div class="v">Watch the REAL line (chart 2) — that's the whole decision.</div><div class="n">Snapshot: nominal ~5.2% · real ~2.0%. &nbsp;<b style="color:var(--grn)">Real flat/falling while nominal rises → press gold, silver, crypto.</b> &nbsp;<b style="color:var(--red)">Real rising too → sit in cash.</b></div></div>
+
+    <div class="lbl"><span class="chartlbl cl-nom">CHART 1 · NOMINAL</span> the 10y (US10Y)</div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"TVC:US10Y","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+    <div class="guide">The headline yield everyone quotes. Only question: is it rising or falling?</div>
+
+    <div class="lbl"><span class="chartlbl cl-real">CHART 2 · REAL ◄ WATCH THIS</span> the 10y after inflation (DFII10)</div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"FRED:DFII10","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+    <div class="guide"><b>The referee.</b> Rising = headwind, wait. Flat or falling while chart 1 climbs = green light, press gold / silver / crypto.</div>
+  </section>
+
+  <!-- ROTATION -->
+  <section class="view" id="rotation">
+    <h1>Rotation</h1>
+    <p class="sub">Which baton is being passed — tech → hard money → apex. Weekly ratios.</p>
+    <div class="card"><h3>Gold / Nasdaq <span class="tag">BREAKING</span></h3><p>Hard assets vs AI — the master line. Up-break (weekly close above the descending trendline) = <b>rotation ON.</b> Happening now.</p></div>
+    <div class="card"><h3>Gold / BTC — basing → testing</h3><p>Gold vs the apex. Break above the basing high = <b>gold's leadership leg</b>, out-running even BTC. Retesting the breakout now.</p></div>
+    <div class="card"><h3>Nasdaq / BTC — funding source</h3><p>Break DOWN = <b>BTC reasserts the crown</b> (later, on the print). Oversold bounce now — don't chase the short.</p></div>
+    <div class="card"><h3>Gold / Oil — phase gauge (~46, extreme)</h3><p>High = risk-off/gold dominant. <b>Rollover = reflation, press energy.</b> Relative only — oil "cheap vs gold" ≠ cheap in dollars.</p></div>
+    <div class="seq"><span class="s">Gold&gt;Nasdaq</span><span class="ar">→</span><span class="s">Gold&gt;BTC</span><span class="ar">→</span><span class="s">Oil catches up</span><span class="ar">→</span><span class="s">BTC reasserts</span></div>
+    <div class="lbl" style="margin-top:10px"><b>Gold / Nasdaq</b> live</div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="adv">{"symbol":"TVC:GOLD/NASDAQ","interval":"W","theme":"dark","style":"2","locale":"en","hide_side_toolbar":true,"allow_symbol_change":true,"backgroundColor":"rgba(18,26,46,1)","autosize":true}</script></div></div>
+    <div class="lbl"><b>Gold / Oil</b> — phase gauge (rollover = press energy)</div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%;width:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="adv">{"symbol":"TVC:GOLD/USOIL","interval":"W","theme":"dark","style":"2","locale":"en","hide_side_toolbar":true,"allow_symbol_change":true,"backgroundColor":"rgba(18,26,46,1)","autosize":true}</script></div></div>
+  </section>
+
+  <!-- BOOK -->
+  <section class="view" id="book">
+    <h1>The Book</h1>
+    <p class="sub">Bullish gold + crypto. They lead in sequence — gold first, BTC harder on the print.</p>
+    <div class="card"><h3>Leadership order</h3><ul class="ul"><li><b>Gold leads now</b> — the safe-haven/regime break. Add on the breakout.</li><li><b>Silver + miners amplify</b> — 2–3× gold's move; the leveraged expression (AG, HYMC). Silver through gold's break = the real thing.</li><li><b>BTC reasserts on the print</b> — higher-beta apex; hold through gold's leg, it leads the second leg harder.</li><li><b>Alts (XMR/XRP)</b> — amplify once BTC dominance peaks.</li></ul></div>
+    <div class="card"><h3>Gold breakout triggers (2 of 3)</h3><ul class="ul"><li>Weekly close above the consolidation/ATH ceiling.</li><li>Gold/Nasdaq break holding + Gold/BTC retest holds.</li><li>10y through 5.245 with gold green (right kind of break).</li></ul></div>
+    <div class="card"><h3>Entry levels (verify live)</h3><table><tr><th>Buy</th><th>Level</th></tr><tr><td>Gold</td><td>3800 / 3400 / 3100 ladder</td></tr><tr><td>Silver</td><td>flush lows → then press the break</td></tr><tr><td>BTC</td><td>50k / 45k on dips</td></tr><tr><td>XRP</td><td>0.82 / 0.67</td></tr></table></div>
+    <div class="note"><b>The one flag:</b> in an acute flush crypto drops harder than gold (higher beta) before recovering. Gold = ballast, crypto = torque. Hold both — gold cushions the flush, crypto supercharges the recovery.</div>
+  </section>
+
+  <!-- LIVE -->
+  <section class="view" id="live">
+    <h1>Live</h1>
+    <p class="sub">Crypto real-time (CoinGecko). Charts via TradingView. <span id="livestat">connecting…</span></p>
+    <h2>Crypto</h2>
+    <div class="board" id="crypto"></div>
+    <h2>Gold · Silver · BTC · DXY · 10y · Oil</h2>
+    <div class="tvwrap" style="height:auto"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="application/json" data-tv="ticker">{"symbols":[{"proName":"TVC:GOLD","title":"Gold"},{"proName":"TVC:SILVER","title":"Silver"},{"proName":"BINANCE:BTCUSDT","title":"BTC"},{"proName":"TVC:DXY","title":"DXY"},{"proName":"TVC:US10Y","title":"10y"},{"proName":"TVC:UKOIL","title":"Brent"},{"proName":"TVC:USOIL","title":"WTI"}],"colorTheme":"dark","isTransparent":true,"displayMode":"adaptive","locale":"en"}</script></div></div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"TVC:GOLD","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"BINANCE:BTCUSDT","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+  </section>
+
+  <!-- WATCH -->
+  <section class="view" id="watch">
+    <h1>Watch</h1>
+    <p class="sub">Radar names + a screener for cash-rich, hated, smashed value.</p>
+    <div class="tvwrap" style="height:auto"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="application/json" data-tv="ticker">{"symbols":[{"proName":"NASDAQ:IREN","title":"IREN"},{"proName":"NASDAQ:MSTR","title":"MSTR"},{"proName":"AMEX:LEU","title":"LEU"},{"proName":"LSE:RR","title":"Rolls RR"},{"proName":"NASDAQ:WULF","title":"WULF"},{"proName":"NASDAQ:DXYZ","title":"DXYZ (SpaceX)"},{"proName":"NYSE:NKE","title":"Nike"},{"proName":"NYSE:CLX","title":"Clorox"},{"proName":"NASDAQ:INTU","title":"Intuit"}],"colorTheme":"dark","isTransparent":true,"displayMode":"adaptive","locale":"en"}</script></div></div>
+
+    <h2>On the radar — more ready</h2>
+    <div class="card"><ul class="ul">
+      <li><b>LEU</b> — Centrus, uranium enrichment. Your nuclear/energy-security leg.</li>
+      <li><b>RR (LSE:RR)</b> — Rolls-Royce. Defence + nuclear + power, triple play.</li>
+      <li><b>IREN</b> — energy + crypto in one, the cleanest single dual. Alts: <b>WULF</b> (bigger contracted-AI backlog), CORZ.</li>
+      <li><b>MSTR</b> — leveraged BTC proxy (~2× Bitcoin both ways). Your "if crypto takes off" turbo.</li>
+    </ul></div>
+
+    <h2>Waiting for entry — the dips</h2>
+    <div class="card"><ul class="ul">
+      <li><b>SpaceX → DXYZ</b> (~$40–50) — SpaceX is <b>private</b>; DXYZ is the listed fund proxy. ⚠ trades at a huge premium to NAV — speculative, whipsaws on IPO rumours. Real routes: pre-IPO (Forge/EquityZen, accredited) or the eventual IPO.</li>
+      <li><b>NKE</b> — Nike, near multi-year lows, hated brand-name value.</li>
+      <li><b>CLX</b> — Clorox, beaten-down defensive.</li>
+      <li><b>INTU</b> — Intuit, quality pullback (not a true all-time low — watch the level).</li>
+    </ul></div>
+
+    <h2>Crypto adds</h2>
+    <div class="card"><p><b>Now live on the Live tab:</b> TRX, HYPE, ONDO, FET (LINK already).</p><p><b>Verify before trusting a price:</b> ASTER, VVV, PONS — newer/micro-cap, confirm the exact ticker first. High-risk lottery tickets — size tiny.</p></div>
+
+    <h2>Find hated &amp; smashed — the screener</h2>
+    <div class="card">
+      <p><b>The screen:</b> lots of cash + low debt + still profitable + near its 52-week low + cheap valuation. Quality that's been thrown out with the bathwater — not junk that deserves to be down.</p>
+      <p><a href="https://finviz.com/screener.ashx?v=111&f=cap_midover,fa_curratio_o1.5,fa_debteq_u0.5,fa_netmargin_pos,fa_pe_u25,ta_highlow52w_b0to10h&o=pe" target="_blank" style="color:var(--gold);font-weight:800;text-decoration:none">▶ Open the Finviz screener preset</a></p>
+      <ul class="ul">
+        <li><b>Cash-rich / liquid:</b> current ratio &gt; 1.5</li>
+        <li><b>Low debt:</b> debt/equity &lt; 0.5</li>
+        <li><b>Still profitable:</b> positive net margin (avoids value traps)</li>
+        <li><b>Cheap:</b> P/E under 25</li>
+        <li><b>Hated / smashed:</b> within 10% of the 52-week low</li>
+        <li><b>Real size:</b> mid-cap and up (no microcap junk)</li>
+      </ul>
+      <p style="font-size:11.5px;color:var(--mut)">Tweak any filter in the Finviz UI. TradingView's screener does the same if you prefer. The goal: <b>a great business the market temporarily hates</b> — then wait for your entry.</p>
+    </div>
+
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"NASDAQ:IREN","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+    <div class="tvwrap mid"><div class="tradingview-widget-container" style="height:100%"><div class="tradingview-widget-container__widget" style="height:100%"></div><script type="application/json" data-tv="mini">{"symbol":"NASDAQ:DXYZ","dateRange":"12M","colorTheme":"dark","isTransparent":true,"autosize":true}</script></div></div>
+  </section>
+
+  <p class="foot">Gen Wealth · one-file build for GitHub Pages · crypto live, charts via TradingView.<br>Setup analysis, not investment advice.</p>
+</div>
+
+<nav>
+  <button data-v="gates" class="on"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16M4 5v14M4 19h16M8 9h8M8 13h6"/></svg>Gates</button>
+  <button data-v="yield"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20V10M9 20V5M14 20v-7M19 20V8"/></svg>Yield</button>
+  <button data-v="rotation"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 8.5 6L12 12z"/></svg>Rotation</button>
+  <button data-v="book"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16M4 5v14M4 19h16M8 9h8M8 13h6"/></svg>Book</button>
+  <button data-v="live"><svg class="ic" viewBox="0 0 24 24"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>Live</button>
+  <button data-v="watch"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Watch</button>
+</nav>
+
+<script>
+  var views=document.querySelectorAll('.view'),btns=document.querySelectorAll('nav button');
+  function show(id){views.forEach(function(v){v.classList.toggle('active',v.id===id)});btns.forEach(function(b){b.classList.toggle('on',b.dataset.v===id)});window.scrollTo({top:0});try{localStorage.setItem('gw_tab',id)}catch(e){}}
+  btns.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.v)})});
+  try{var t=localStorage.getItem('gw_tab');if(t&&document.getElementById(t))show(t)}catch(e){}
+  // TradingView widgets
+  var tvf={ticker:'ticker-tape',mini:'mini-symbol-overview',adv:'advanced-chart'};
+  document.querySelectorAll('script[data-tv]').forEach(function(c){var k=c.getAttribute('data-tv'),f=tvf[k];if(!f)return;var s=document.createElement('script');s.async=true;s.src='https://s3.tradingview.com/external-embedding/embed-widget-'+f+'.js';s.textContent=c.textContent;c.parentNode.appendChild(s)});
+  // live crypto
+  var CR=[{k:'bitcoin',s:'BTC',dp:0},{k:'monero',s:'XMR',dp:2},{k:'ripple',s:'XRP',dp:4},{k:'stellar',s:'XLM',dp:4},{k:'chainlink',s:'LINK',dp:2},{k:'zcash',s:'ZEC',dp:2},{k:'tron',s:'TRX',dp:4},{k:'hyperliquid',s:'HYPE',dp:2},{k:'ondo-finance',s:'ONDO',dp:4},{k:'fetch-ai',s:'FET',dp:4}];
+  function draw(map){var el=document.getElementById('crypto');if(!el)return;var h='';CR.forEach(function(c){var d=map&&map[c.k];var px=d?('$'+Number(d.usd).toLocaleString('en-US',{minimumFractionDigits:c.dp,maximumFractionDigits:c.dp})):'—';var ch=d&&d.usd_24h_change!=null?d.usd_24h_change:null;var cc=ch==null?'flat':(ch>0?'up':'dn');var ct=ch==null?'':((ch>0?'+':'')+ch.toFixed(2)+'%');h+='<div class="q'+(d?'':' stale')+'"><div class="sym">'+c.s+'</div><div class="px">'+px+'</div><div class="ch '+cc+'">'+ct+'</div><div class="src">'+(d?'coingecko':'—')+'</div></div>'});el.innerHTML=h}
+  draw(null);
+  function pull(){var ids=CR.map(function(c){return c.k}).join(',');fetch('https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=usd&include_24hr_change=true').then(function(r){return r.json()}).then(function(j){draw(j);var d=new Date();var s=document.getElementById('livestat');if(s)s.textContent='updated '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);var st=document.getElementById('stamp');if(st)st.textContent='Live';}).catch(function(){var s=document.getElementById('livestat');if(s)s.textContent='offline — showing last';})}
+  pull();setInterval(pull,60000);
+  // Thesis score
+  var SIG=[
+   {id:'fisc',l:'Fiscal-dominance backdrop — debt too big to hold real rates',w:8,on:1},
+   {id:'yhi',l:'Yields high & rising (Gate 0/1 live)',w:7,on:1},
+   {id:'reg',l:'Yield regime = FISCAL: real contained, breakevens widening',w:12,on:1},
+   {id:'gn',l:'Rotation ON — Gold/Nasdaq breaking up',w:12,on:1},
+   {id:'gbrk',l:'Gold absolute breakout — clears the ATH ceiling',w:12,on:0},
+   {id:'slv',l:'Silver confirming through the break',w:6,on:0},
+   {id:'btc',l:'BTC decoupling — trades with gold, not Nasdaq',w:10,on:0},
+   {id:'y30',l:'30y > 6% afterburner / weak auctions',w:8,on:0},
+   {id:'repo',l:'Funding stress rising — repo / SOFR / MOVE',w:5,on:0},
+   {id:'qe',l:'Fed printing — balance sheet turning UP (Gate 3)',w:20,on:0}
+  ];
+  (function(){ var st={}; try{st=JSON.parse(localStorage.getItem('gw_sig')||'{}')}catch(e){}
+   SIG.forEach(function(s){ if(st[s.id]!=null) s.on=st[s.id]?1:0; }); })();
+  function scband(v){ if(v<=25)return['Setup','#e8615a']; if(v<=50)return['Building','#e8b64a']; if(v<=75)return['Confirming','#4d8bd6']; return['Firing','#37c07a']; }
+  function scRender(){ var el=document.getElementById('signals'); if(!el)return;
+   var tot=0; SIG.forEach(function(s){ if(s.on) tot+=s.w; });
+   var h=''; SIG.forEach(function(s){ h+='<div class="sig'+(s.on?' on':'')+'" data-id="'+s.id+'"><div class="dot">'+(s.on?'✓':'')+'</div><div class="sl">'+s.l+'</div><div class="sw">+'+s.w+'</div></div>'; });
+   el.innerHTML=h; var bd=scband(tot);
+   document.getElementById('scnum').textContent=tot;
+   var sb=document.getElementById('scband'); sb.textContent=bd[0]; sb.style.color=bd[1];
+   var mf=document.getElementById('mfill'); mf.style.width=tot+'%'; mf.style.background=bd[1];
+   el.querySelectorAll('.sig').forEach(function(r){ r.addEventListener('click',function(){ var id=r.getAttribute('data-id'); SIG.forEach(function(s){ if(s.id===id) s.on=s.on?0:1; }); var o={}; SIG.forEach(function(s){ o[s.id]=s.on; }); try{localStorage.setItem('gw_sig',JSON.stringify(o))}catch(e){} scRender(); }); });
+  }
+  scRender();
+</script>
+</body>
+</html>
